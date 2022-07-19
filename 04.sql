@@ -1,4 +1,5 @@
 --4장. single function 데이터타입변환(datatype conversion)
+--자동형변환
 
 select hire_date
 from employees
@@ -38,15 +39,8 @@ from employees;
 --과제] 위 테이블을 월요일부터 입사일순 오름차순으로 정렬하라.
 select last_name, hire_date, to_char(hire_date, 'fmday') day
 from employees
-order by case day
-            when 'monday' then 1
-            when 'tuesday' then 2
-            when 'wednesday' then 3
-            when 'thursday' then 4
-            when 'friday' then 5
-            when 'saturday' then 6
-            when 'sunday' then 7
-        end;
+order by to_char(hire_date - 1, 'd'),
+    to_char(hire_date);
                 
 select to_char(sysdate, 'hh24:mi:ss am')
 from dual;
@@ -146,6 +140,7 @@ from employees;  --2개 파라미터의 값이 같으면 null을 리턴, 그리고 다르면 첫번째 
 
 select to_char(null), to_number(null), to_date(null)
 from dual;  --null넣으면 null값들어감.
+--싱글펑션은 파라미터 null 들어오면 리턴값 null   그룹은 파라미터로 null들어오면 무시.
 
 select last_name, job_id,
     coalesce(to_char(commission_pct), to_char(manager_id), 'None')
@@ -262,6 +257,21 @@ select last_name, hire_date, to_char(hire_date, 'day'),
         when 'saturday' then 6
         when 'sunday' then 7
         end day
+from employees
+order by day;
+
+--과제] 이름, 입사일, 요일을 월요일부터 요일순으로 조회하라. (다른버젼)
+select last_name, hire_date, to_char(hire_date, 'day'),
+    case to_char(hire_date, 'fmday')
+order by case day
+            when 'monday' then 1
+            when 'tuesday' then 2
+            when 'wednesday' then 3
+            when 'thursday' then 4
+            when 'friday' then 5
+            when 'saturday' then 6
+            when 'sunday' then 7
+        end;
 from employees
 order by day;
 

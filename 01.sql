@@ -19,7 +19,7 @@ from employees;
 
 -- 과제] 사원들의 월급, 연봉을 조회하라.
 
-select salary, salary * 12
+select salary, salary * 12 "연봉"
 from employees;
 
 --우선순위.

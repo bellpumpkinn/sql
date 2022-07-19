@@ -1,5 +1,6 @@
 --3장 single function
 --펑션에 들어가는 파라미터의 갯수가 싱글이다.
+--그룹function과의 공통점: 리턴값이 하나다.
 
 desc dual  --구조를 조회
 select * from dual;  --데이터를 조회   레코드에 필드가 1개.
@@ -59,6 +60,17 @@ from employees;
 select rpad('Hi', 5, '*')
 from employees;
 
+--과제] 사원들의 이름, 월급그래프를 조회하라.
+--     그래프는 $1000 당 * 하나를 표시한다.
+
+select last_name, rpad('*', trunc(salary / 1000), '*')
+from employees;
+
+-- 과제] 위 그래프를 월급 기준 내림차순 정렬하라.
+select last_name, rpad(' ', salary / 1000 + 1, '*')
+from employees
+order by salary desc;
+
 --글자를 바꾸고 싶을때 쓰는 메서드
 select replace('JACK and JUE', 'J', 'BL')
 from dual;
@@ -83,7 +95,9 @@ select employee_id, concat(first_name, last_name) name,
     job_id, length(last_name), instr(last_name, 'a') "Contains 'a'?"
 from employees
 where substr(job_id, 4) = 'PROG';
+
 --과제] 위 문장에서, where절을 like 로 refactoring 하라.
+
 select employee_id, concat(first_name, last_name) name,
     job_id, length(last_name), instr(last_name, 'a') "Contains 'a'?"
 from employees
@@ -103,7 +117,7 @@ select round(45.926, 2) --반올림
 from dual;
 select trunc(45.926, 2) --내림
 from dual;
-select mod(1600, 300)
+select mod(1600, 300) --나머지
 from dual;
 
 select round(45.923, 0), round(45.923)
@@ -116,7 +130,7 @@ select last_name, salary, trunc(salary * 1.155) "New Salary", trunc(salary * 1.1
 from employees;
 -----------------------------------------------------------
 --날짜를 다루는 함수.
-select sysdate   --서버의 시각을 알려줌
+select sysdate   -- 오라클 서버의 시각을 알려줌
 from dual;
 
 select sysdate + 1
@@ -130,6 +144,7 @@ from dual;
 select last_name, sysdate - hire_date
 from employees
 where department_id = 90;
+
 --과제] 90번 부서 사원들의 이름, 근속년수를 조회하라.
 select last_name, trunc((sysdate - hire_date) / 365)
 from employees

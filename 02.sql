@@ -1,4 +1,4 @@
---2장 where
+--2장 where --내가원하는레코드를 뽑아냄
 
 select employee_id, last_name, department_id
 from employees
@@ -47,7 +47,7 @@ where last_name = 'King';
 
 select last_name, hire_date
 from employees
-where hire_date between '02/01/01' and '02/12/31';
+where hire_date between '2002/01/01' and '2002/12/31';
 --------------------------
 
 select employee_id, last_name, manager_id
@@ -68,6 +68,7 @@ select last_name, hire_date
 from employees
 where hire_date in ('2003/06/17', '2005/09/21');
 ------------------------------------
+--like: 비교값이 문자.
 
 select last_name
 from employees
@@ -186,7 +187,7 @@ from employees
 where job_id like '%SA%' and 
      salary not in(2500, 3500);
 ------------------------------------------------------
--- order by
+-- order by: 항상 맨끝에 씀.
 
 select last_name, department_id
 from employees
